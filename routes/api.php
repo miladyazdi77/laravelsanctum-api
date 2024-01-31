@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\RoleController;
+use App\Http\Controllers\PermissionController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -41,15 +42,23 @@ Route::middleware('create-users')->group(function () {
         [UserController::class, 'store']
     );
 });
-Route::prefix('roles')->group(function () {
-    Route::post('/',[RoleController::class, 'RoleController@store']);
-    Route::put('/{role}',[RoleController::class, 'RoleController@update'],);
-    Route::delete('/{role}',[RoleController::class, 'RoleController@destroy']);
+Route::prefix('api')->group(function () {
+    Route::middleware('auth:api')->group(function () {
+        Route::get('/roles', [RoleController::class, 'index']);
+        Route::post('/roles', [RoleController::class, 'store']);
+        Route::get('/roles/{id}', [RoleController::class, 'show']);
+        Route::put('/roles/{id}', [RoleController::class, 'update']);
+        Route::delete('/roles/{id}', [RoleController::class, 'destroy']);
+    });
 });
 
-Route::prefix('permissions')->group(function () {
-    Route::post('/',[RoleController::class, 'PermissionController@store']);
-    Route::put('/{permission}',[RoleController::class, 'PermissionController@update']);
-    Route::delete('/{permission}',[RoleController::class, 'PermissionController@destroy']);
+Route::prefix('api')->group(function () {
+    Route::middleware('auth:api')->group(function () {
+        Route::get('/permissions', [PermissionController::class, 'index']);
+        Route::post('/permissions', [PermissionController::class, 'store']);
+        Route::get('/permissions/{id}', [PermissionController::class, 'show']);
+        Route::put('/permissions/{id}', [PermissionController::class, 'update']);
+        Route::delete('/permissions/{id}', [PermissionController::class, 'destroy']);
+    });
 });
 

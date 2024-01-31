@@ -24,8 +24,6 @@ class RoleController extends Controller
         $this->middleware('permission:edit-role', ['only' => ['edit','update']]);
         $this->middleware('permission:delete-role', ['only' => ['destroy']]);
         $this->roleService = $roleService;
-
-        $this->middleware('auth');
     }
     /**
      * Display a listing of the resource.
