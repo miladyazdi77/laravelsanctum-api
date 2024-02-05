@@ -1,10 +1,13 @@
 <?php
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\OTPController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -31,6 +34,12 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', [HomeController::class, 'index'])->name('home');
+Route::post('/otp-login', [OTPController::class, 'login'])->name('otp.login');
+Route::get('/dashboard', 'DashboardController@index')->middleware('auth');
+Route::get('/token', function () {
+    return view('token');
+});
+
 
 Route::resources([
     'roles' => RoleController::class,

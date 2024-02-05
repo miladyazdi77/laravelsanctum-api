@@ -1,11 +1,13 @@
 <?php
 
+use App\Http\Controllers\TokenController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\PermissionController;
+use App\Http\Controllers\OTPController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -26,6 +28,8 @@ Route::group(['prefix' => 'auth'], function () {
         Route::get('user', [AuthController::class, 'user']);
     });
 });
+Route::post('/login/otp', [OTPController::class, 'login']);
+Route::post('/token', [TokenController::class, 'token']);
 Route::get(
     '/users/create',
     [UserController::class, 'create']
