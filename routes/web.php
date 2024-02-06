@@ -7,6 +7,7 @@ use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\OTPController;
+use \App\Http\Controllers\DashboardController;
 
 
 /*
@@ -34,12 +35,12 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', [HomeController::class, 'index'])->name('home');
-Route::post('/otp-login', [OTPController::class, 'login'])->name('otp.login');
-Route::get('/dashboard', 'DashboardController@index')->middleware('auth');
+Route::post('/otp_login', [OTPController::class, 'login'])->name('otp.login');
+Route::get('/dashboard', [DashboardController::class, 'index'])->middleware('auth');
+
 Route::get('/token', function () {
     return view('token');
 });
-
 
 Route::resources([
     'roles' => RoleController::class,

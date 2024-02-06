@@ -29,7 +29,7 @@ Route::group(['prefix' => 'auth'], function () {
     });
 });
 Route::post('/login/otp', [OTPController::class, 'login']);
-Route::post('/token', [TokenController::class, 'token']);
+Route::get('/token', [TokenController::class, 'token']);
 Route::get(
     '/users/create',
     [UserController::class, 'create']
